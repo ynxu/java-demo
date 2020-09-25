@@ -9,7 +9,7 @@ import java.util.Map;
 public class HT {
     public static void main(String[] args) {
 
-        String url = "d:/dict.xlsx";
+        String url = "/Users/yanxu/project-suntech/qcc-cloud-backend/java-demo/hutool/src/main/resources/dict.xlsx";
         ExcelReader reader = ExcelUtil.getReader(url);
         List<List<Object>> maps = reader.read();
         for (List<Object> map : maps) {
