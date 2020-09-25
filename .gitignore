@@ -1,0 +1,6 @@
+# Project exclude paths
+/.gradle/
+/easyexcel/build/
+/easyexcel/build/classes/java/main/
+/hutool/build/
+/hutool/build/classes/java/main/
