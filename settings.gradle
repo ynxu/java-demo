@@ -1,4 +1,6 @@
 rootProject.name = 'java-demo'
 include 'easyexcel'
 include 'hutool'
+include 'common'
+include 'pdf'
 

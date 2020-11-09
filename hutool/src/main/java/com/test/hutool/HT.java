@@ -9,13 +9,14 @@ import java.util.Map;
 public class HT {
     public static void main(String[] args) {
 
-        String url = "/Users/yanxu/project-suntech/qcc-cloud-backend/java-demo/hutool/src/main/resources/dict.xlsx";
+//        String url = "/Users/yanxu/project-suntech/qcc-cloud-backend/java-demo/hutool/src/main/resources/a.xlsx";
+        String url = "/Users/yanxu/a.xlsx";
         ExcelReader reader = ExcelUtil.getReader(url);
-        List<List<Object>> maps = reader.read();
-        for (List<Object> map : maps) {
-            for (Object entry : map) {
-                System.out.print(entry);
-//                System.out.print(entry.getValue());
+        List<Map<String, Object>> maps = reader.readAll();
+        for (Map<String, Object> map : maps) {
+            for (Map.Entry<String,Object> entry : map.entrySet()) {
+                System.out.print(entry.getKey());
+                System.out.print(entry.getValue());
                 System.out.println();
             }
         }
