@@ -4,4 +4,6 @@ include 'hutool'
 include 'common'
 include 'pdf'
 include 'reactor'
+include 'rsa'
+include 'hanlp'
 

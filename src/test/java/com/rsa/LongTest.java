@@ -1,4 +1,4 @@
-package com.test;
+package com.rsa;
 
 import org.junit.Test;
 
