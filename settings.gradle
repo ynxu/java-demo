@@ -6,4 +6,6 @@ include 'pdf'
 include 'reactor'
 include 'rsa'
 include 'hanlp'
+include 'netty'
+include 'dingding'
 
