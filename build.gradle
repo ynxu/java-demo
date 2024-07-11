@@ -1,22 +1,73 @@
-plugins {
-    id 'java'
-    id "org.sonarqube" version "3.3"
-}
-sonarqube {
-    properties {
-        property "sonar.projectKey", "a"
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    group 'com.example'
+    version '1.0.0'
+    sourceCompatibility = '1.8'
+
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
+        maven { url 'https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/' }
+    }
+
+    ext {
+        easyexcelVersion = '2.2.6'
+        hutoolVersion = '5.7.22'
+        junitVersion = '4.12'
+        lombokVersion = '1.18.10'
+    }
+
+    dependencies {
+        implementation group: 'com.alibaba', name: 'easyexcel', version: rootProject.ext.easyexcelVersion
+        implementation group: 'org.projectlombok', name: 'lombok', version: rootProject.ext.lombokVersion
+        testImplementation group: 'junit', name: 'junit', version: rootProject.ext.junitVersion
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
     }
 }
-group 'org.example'
-version '1.0-SNAPSHOT'
+// 为所有子模块都应用java插件
+//subprojects {
+//    apply plugin: 'java'
+//}
 
-repositories {
-    mavenLocal()
-    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-    mavenCentral()
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.test.Main'
+    }
 }
+
 dependencies {
-    compile fileTree(dir: 'libs', include: [ '*.jar'])
-    compile 'cn.hutool:hutool-all:5.4.3'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':hutool')
+    implementation project(':bio')
 }
+// 在主模块的build.gradle文件中
+
+task fatJar(type: Jar) {
+    archiveBaseName.set('java-demo')
+    archiveVersion.set('1.0.0')
+    archiveClassifier.set('')
+    from sourceSets.main.output
+
+    // 添加子模块的JAR文件作为依赖
+    // 假设子模块名为'submodule'，并且它已经被构建并放置在build/libs目录下
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+
+    // 排除不需要的JAR（如主模块自己的JAR，如果有的话）
+    exclude '**/java-demo-*.jar'
+
+    // 如果你需要包含特定的资源或配置文件，可以在这里添加
+    // 例如：from('src/main/resources')
+
+    manifest {
+        attributes 'Main-Class': 'com.test.Main' // 指定主类
+    }
+}
+
+// 如果你想让这个任务在构建时自动执行，可以将其设置为dependsOn或添加到某个现有的任务（如jar）
+// 但通常，你会希望保留标准的jar任务用于其他目的，并手动运行fatJar任务

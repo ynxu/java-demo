@@ -1,4 +1,4 @@
-package com.test;
+package com.example;
 
 
 import cn.hutool.core.codec.Base64;

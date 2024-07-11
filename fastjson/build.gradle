@@ -13,6 +13,8 @@ repositories {
 
 dependencies {
     compile group: 'io.projectreactor', name: 'reactor-core', version: '3.4.0'
+    compile 'com.alibaba:fastjson:1.2.55'
+    compile 'org.projectlombok:lombok:1.18.10'
     testCompile group: 'io.projectreactor', name: 'reactor-test', version: '3.4.0'
     testCompile group: 'junit', name: 'junit'
 }

@@ -8,6 +8,6 @@ repositories {
 }
 
 dependencies {
-    compile 'cn.hutool:hutool-all:5.4.3'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'cn.hutool',name: 'hutool-all'
+    testCompile group: 'junit', name: 'junit'
 }
